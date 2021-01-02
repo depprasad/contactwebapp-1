@@ -57,15 +57,17 @@ app.post("/", function(req, res) {
     });
 
     if (response.total_created === 0 ) {
-      res.send("<h2 > Oh ! there is an error.....   "+ response.errors[0].error_code+"</h2>");
+      res.sendFile(__dirname + "/failure.html")
+      // res.send("<h2 > Oh ! there is an error.....   "+ response.errors[0].error_code+"</h2>");
     } else {
-      res.send("Contact name " + "<h2>" + response.new_members[0].merge_fields.FNAME +"</h2> with Email ID - <h2>"+ response.new_members[0].email_address + "</h2> Successfully Created ");
+      res.sendFile(__dirname + "/success.html")
+      // res.send("Contact name " + "<h2>" + response.new_members[0].merge_fields.FNAME +"</h2> with Email ID - <h2>"+ response.new_members[0].email_address + "</h2> Successfully Created ");
     }
 
     //
     //
 
-    // console.log(response);
+    console.log(response);
   };
 
   run();
@@ -73,6 +75,9 @@ app.post("/", function(req, res) {
 
 })
 
+app.post("/failure", function(req,res){
+  res.redirect("/");
+})
 
 app.listen(process.env.PORT||3000, function (req,res){
 
